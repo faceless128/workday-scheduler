@@ -4,6 +4,15 @@ var todayIs = moment().format("dddd, MMMM Do YYYY");
 $(currentDay).text(todayIs);
 var timeBlocks = "";
 
+// textarea was clicked
+$(".schedule-item").on("click", "div", function() {
+    var text = $(this).text().trim();
+    console.log(text);
+    var textInput = $("<textarea>").addClass("form-control").val(text);
+    $(this).replaceWith(textInput);
+    textInput.trigger("focus");
+  });
+  
 
 var makeDay = function() {
     // var thisTime = $("<div>").addClass("hour col-2 col-md-1").val("8AM");
