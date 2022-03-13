@@ -18,6 +18,14 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+      integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Work Day Scheduler</title>
   </head>
@@ -29,10 +37,107 @@
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
+    <!-- Time Blocks-->
     <div class="container" id="scheduler">
-      <!-- Timeblocks go here -->
+      <!-- 8am  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 8am">
+          8AM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="8am">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 9am  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 9am">
+          9AM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="9am">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 10am  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 10am">
+          10AM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="10am">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 11am  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 11am">
+          11AM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="11am">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 12pm  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 12pm">
+          12PM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="12pm">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 1pm">
+          1PM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="1pm">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 2pm  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 2pm">
+          2PM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="2pm">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 8am  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 3pm">
+          3PM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="3pm">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
+      <!-- 4pm  -->
+      <div class="time-block row">
+        <div class="hour col-2 col-md-1 4pm">
+          4PM
+        </div>
+        <div class="col-8 col-md-10 present">
+        </div>
+        <div class="saveBtn col-2 col-md-1" id="4pm">
+          <span class="oi oi-hard-drive"></span>
+        </div>
+      </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
