@@ -25,6 +25,11 @@ textarea{
   white-space: pre-wrap;
 }
 
+.schedule-item {
+  text-align: left;
+  padding: 10px;
+}
+
 .time-block{
   text-align: center;
   border-radius: 15px;
@@ -65,7 +70,8 @@ textarea{
   color: white;
 }
 
-.saveBtn i:hover {
-  font-size: 20px;
+.saveBtn:hover {
+  background-color: beige;
+  color: #06AED5;
   transition: all .3s ease-in-out;
 }
