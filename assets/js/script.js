@@ -25,7 +25,7 @@ $(".saveBtn").on("click", function() {
     var textareaText = $("." + saveButton).next().val().trim();
     var textSection = $("<section>").addClass("col-8 col-md-10 schedule-item").text(textareaText);
     checkSchedule(saveButton, textSection);
-    changedDiv = [{ "time" : saveButton, "scheduleItem" : textareaText }];
+    changedDiv = [{ time : saveButton, scheduleItem : textareaText }];
     $(textareaSpot).replaceWith(textSection);
     saveSchedule();
 });
@@ -36,7 +36,7 @@ var checkSchedule = function(timeVar, textSection) {
     var test = Math.abs(moment().diff(testTime, "hours"));
     if (moment().isAfter(testTime)) {
         $(textSection).addClass("past");
-    } else if (Math.abs(moment().diff(testTime, "hours")) <= 1) {
+    } else if (Math.abs(moment().diff(testTime, "hours")) < 1) {
         $(textSection).addClass("present");
     } else {
         $(textSection).addClass("future");
@@ -45,10 +45,12 @@ var checkSchedule = function(timeVar, textSection) {
 
 // save schedule
 var saveSchedule = function () {
-    console.log(changedDiv)
-    var marr2 = new Map(changedDiv.map(e => [e.time, e]));
-    savedWorkDay.map(obj => marr2.has(obj.id) ? marr2.get(obj.time) : obj);
-    console.log(marr2);
+    console.log(changedDiv);
+    console.log(changedDiv[0].time);
+    var updateDiv = savedWorkDay.findIndex((item) => item.time === changedDiv[0].time);
+    console.log(updateDiv);
+    savedWorkDay[updateDiv].scheduleItem = changedDiv[0].scheduleItem;
+    console.log(savedWorkDay);
     storeSchedule();
 }
 
@@ -59,21 +61,24 @@ var storeSchedule = function() {
 
 // load schedule
 var loadSchedule = function () {
-    var checkWorkDay = JSON.parse(localStorage.getItem("schedule"));
+    var loadWorkDay = JSON.parse(localStorage.getItem("schedule"));
 
     // check localStorage for saved schedule
-    if (!checkWorkDay) {
+    if (!loadWorkDay) {
         savedWorkDay = [
-            { "time": "8am", "scheduleItem": " " },
-            { "time": "9am", "scheduleItem": " " },
-            { "time": "10am", "scheduleItem": " " },
-            { "time": "11am", "scheduleItem": " " },
-            { "time": "12pm", "scheduleItem": " " },
-            { "time": "1pm", "scheduleItem": " " },
-            { "time": "2pm", "scheduleItem": " " },
-            { "time": "3pm", "scheduleItem": " " },
-            { "time": "4pm", "scheduleItem": " " }
+            { time: "8am", scheduleItem: " " },
+            { time: "9am", scheduleItem: " " },
+            { time: "10am", scheduleItem: " " },
+            { time: "11am", scheduleItem: " " },
+            { time: "12pm", scheduleItem: " " },
+            { time: "1pm", scheduleItem: " " },
+            { time: "2pm", scheduleItem: " " },
+            { time: "3pm", scheduleItem: " " },
+            { time: "4pm", scheduleItem: " " }
         ];
+    } else {
+        console.log(loadWorkDay);
+        savedWorkDay = loadWorkDay;
     }
     console.log(savedWorkDay);
     // loop over object properties
@@ -85,6 +90,7 @@ var loadSchedule = function () {
 
         // checkSchedule(saveButton, textSection);
     };
+    console.log(savedWorkDay);
 };
 
 loadSchedule();
