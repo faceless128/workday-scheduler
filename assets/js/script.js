@@ -46,13 +46,9 @@ var checkSchedule = function(timeVar, textSection) {
 // save schedule
 var saveSchedule = function () {
     console.log(changedDiv)
-    const newArr = savedWorkDay.map(obj => {
-        if (obj.name === changedDiv.name) {
-          return {...obj, scheduleItem: changedDiv.scheduleItem};
-        }
-        return obj;
-      });
-    console.log(savedWorkDay);
+    var marr2 = new Map(changedDiv.map(e => [e.time, e]));
+    savedWorkDay.map(obj => marr2.has(obj.id) ? marr2.get(obj.time) : obj);
+    console.log(marr2);
     storeSchedule();
 }
 
@@ -63,10 +59,10 @@ var storeSchedule = function() {
 
 // load schedule
 var loadSchedule = function () {
-    var savedWorkDay = JSON.parse(localStorage.getItem("schedule"));
+    var checkWorkDay = JSON.parse(localStorage.getItem("schedule"));
 
     // check localStorage for saved schedule
-    if (!savedWorkDay) {
+    if (!checkWorkDay) {
         savedWorkDay = [
             { "time": "8am", "scheduleItem": " " },
             { "time": "9am", "scheduleItem": " " },
