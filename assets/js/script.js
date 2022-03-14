@@ -2,7 +2,12 @@
 var todayIs = moment().format("dddd, MMMM Do YYYY");
 
 $(currentDay).text(todayIs);
+
 var timeBlocks = "";
+
+var savedWorkDay = [];
+
+var changedDiv = [];
 
 // textarea was clicked
 $(".time-block").on("click", "section", function() {
@@ -20,11 +25,13 @@ $(".saveBtn").on("click", function() {
     var textareaText = $("." + saveButton).next().val().trim();
     var textSection = $("<section>").addClass("col-8 col-md-10 schedule-item").text(textareaText);
     checkSchedule(saveButton, textSection);
+    changedDiv = [{ "time" : saveButton, "scheduleItem" : textareaText }];
     $(textareaSpot).replaceWith(textSection);
+    saveSchedule();
 });
 
 // check times on schedule 
-var checkSchedule = function (timeVar, textSection) {
+var checkSchedule = function(timeVar, textSection) {
     var testTime = moment(timeVar, 'ha');
     var test = Math.abs(moment().diff(testTime, "hours"));
     if (moment().isAfter(testTime)) {
@@ -35,3 +42,53 @@ var checkSchedule = function (timeVar, textSection) {
         $(textSection).addClass("future");
     }
 }
+
+// save schedule
+var saveSchedule = function () {
+    console.log(changedDiv)
+    const newArr = savedWorkDay.map(obj => {
+        if (obj.name === changedDiv.name) {
+          return {...obj, scheduleItem: changedDiv.scheduleItem};
+        }
+        return obj;
+      });
+    console.log(savedWorkDay);
+    storeSchedule();
+}
+
+// store schedule
+var storeSchedule = function() {
+    localStorage.setItem("schedule", JSON.stringify(savedWorkDay));
+};
+
+// load schedule
+var loadSchedule = function () {
+    var savedWorkDay = JSON.parse(localStorage.getItem("schedule"));
+
+    // check localStorage for saved schedule
+    if (!savedWorkDay) {
+        savedWorkDay = [
+            { "time": "8am", "scheduleItem": " " },
+            { "time": "9am", "scheduleItem": " " },
+            { "time": "10am", "scheduleItem": " " },
+            { "time": "11am", "scheduleItem": " " },
+            { "time": "12pm", "scheduleItem": " " },
+            { "time": "1pm", "scheduleItem": " " },
+            { "time": "2pm", "scheduleItem": " " },
+            { "time": "3pm", "scheduleItem": " " },
+            { "time": "4pm", "scheduleItem": " " }
+        ];
+    }
+    console.log(savedWorkDay);
+    // loop over object properties
+    for (var i = 0; i < savedWorkDay.length; i++) {
+        currentItem = savedWorkDay[i];
+        var foo = $("#" + currentItem.time).prev().text(currentItem.scheduleItem);
+        console.log(foo)
+        checkSchedule(currentItem.time, foo);
+
+        // checkSchedule(saveButton, textSection);
+    };
+};
+
+loadSchedule();
