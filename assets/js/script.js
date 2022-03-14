@@ -13,12 +13,15 @@ var changedDiv = [];
 $(".time-block").on("click", "section", function() {
     var text = $(this).text().trim();
     var textInput = $("<textarea>").addClass("form-control col-8 col-md-10").val(text);
+    var editOn = $(this).next().addClass("saveActive");
+    $(this).next().replaceWith(editOn);
     $(this).replaceWith(textInput);
     textInput.trigger("focus");
 });
   
 // save button was clicked
-$(".saveBtn").on("click", function() {
+$(".time-block").on("click", ".saveActive", function() {
+    console.log($(this))
     var saveButton = $(this).attr("id");
     var scheduleHour = $("." + saveButton).text().trim();
     var textareaSpot = $("." + saveButton).next();
@@ -28,15 +31,16 @@ $(".saveBtn").on("click", function() {
     changedDiv = [{ time : saveButton, scheduleItem : textareaText }];
     $(textareaSpot).replaceWith(textSection);
     saveSchedule();
+    $(this).removeClass("saveActive");
 });
-
+ 
 // check times on schedule 
 var checkSchedule = function(timeVar, textSection) {
     var testTime = moment(timeVar, 'ha');
     var test = Math.abs(moment().diff(testTime, "hours"));
     if (moment().isAfter(testTime)) {
         $(textSection).addClass("past");
-    } else if (Math.abs(moment().diff(testTime, "hours")) < 1) {
+    } else if (Math.abs(moment().diff(testTime, "hours") -1) <= 1) {
         $(textSection).addClass("present");
     } else {
         $(textSection).addClass("future");
@@ -45,12 +49,8 @@ var checkSchedule = function(timeVar, textSection) {
 
 // save schedule
 var saveSchedule = function () {
-    console.log(changedDiv);
-    console.log(changedDiv[0].time);
     var updateDiv = savedWorkDay.findIndex((item) => item.time === changedDiv[0].time);
-    console.log(updateDiv);
     savedWorkDay[updateDiv].scheduleItem = changedDiv[0].scheduleItem;
-    console.log(savedWorkDay);
     storeSchedule();
 }
 
@@ -77,20 +77,16 @@ var loadSchedule = function () {
             { time: "4pm", scheduleItem: " " }
         ];
     } else {
-        console.log(loadWorkDay);
         savedWorkDay = loadWorkDay;
     }
-    console.log(savedWorkDay);
     // loop over object properties
     for (var i = 0; i < savedWorkDay.length; i++) {
         currentItem = savedWorkDay[i];
         var foo = $("#" + currentItem.time).prev().text(currentItem.scheduleItem);
-        console.log(foo)
         checkSchedule(currentItem.time, foo);
 
         // checkSchedule(saveButton, textSection);
     };
-    console.log(savedWorkDay);
 };
 
 loadSchedule();
