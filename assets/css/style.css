@@ -69,10 +69,16 @@ textarea{
   background-color: #06AED5;
   color: white;
   font-size: 18px;
+  transition: all .3s ease-in-out;
+}
+
+.saveBtn:hover {
+  background-color: #06AED5;
 }
 
 .saveActive {
   background-color: grey;
+  transition: all .3s ease-in-out;
 }
 
 .saveActive:hover {

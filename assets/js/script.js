@@ -21,7 +21,6 @@ $(".time-block").on("click", "section", function() {
   
 // save button was clicked
 $(".time-block").on("click", ".saveActive", function() {
-    console.log($(this))
     var saveButton = $(this).attr("id");
     var scheduleHour = $("." + saveButton).text().trim();
     var textareaSpot = $("." + saveButton).next();
@@ -47,6 +46,12 @@ var checkSchedule = function(timeVar, textSection) {
     }
 }
 
+// run checkSchedule every 5 minutes
+setInterval(function() {
+    checkWorkDay();
+  }, (1000 * 60) * 5);
+  
+
 // save schedule
 var saveSchedule = function () {
     var updateDiv = savedWorkDay.findIndex((item) => item.time === changedDiv[0].time);
@@ -57,6 +62,15 @@ var saveSchedule = function () {
 // store schedule
 var storeSchedule = function() {
     localStorage.setItem("schedule", JSON.stringify(savedWorkDay));
+};
+
+// check entire workday and update highlights
+var checkWorkDay = function() {
+    for (var i = 0; i < savedWorkDay.length; i++) {
+        currentItem = savedWorkDay[i];
+        var currentScheduleItem = $("#" + currentItem.time).prev().text(currentItem.scheduleItem);
+        checkSchedule(currentItem.time, currentScheduleItem);
+    };
 };
 
 // load schedule
@@ -79,14 +93,7 @@ var loadSchedule = function () {
     } else {
         savedWorkDay = loadWorkDay;
     }
-    // loop over object properties
-    for (var i = 0; i < savedWorkDay.length; i++) {
-        currentItem = savedWorkDay[i];
-        var foo = $("#" + currentItem.time).prev().text(currentItem.scheduleItem);
-        checkSchedule(currentItem.time, foo);
-
-        // checkSchedule(saveButton, textSection);
-    };
+    checkWorkDay();
 };
 
 loadSchedule();
