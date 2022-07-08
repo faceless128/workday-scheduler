@@ -1,5 +1,5 @@
 # Work Day Scheduler
-## A straightforward scheduliing application
+## A straightforward scheduling application
 
 Easily keep track of your schedule for the day.
 
